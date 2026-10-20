@@ -5,7 +5,7 @@
 # [x] 1 oz is not the same as 1 g
 # [x] 200 g + 300 g = 500 g
 # [x] 200 g + 1 oz, reduced to grams, using a conversion rate
-# [ ] (200 g + 1 oz) × 2
+# [x] (200 g + 1 oz) × 2
 # [x] Reducing to the same unit needs no conversion rate
 # [x] 2 oz reduced to grams = 56 g at a rate of 28
 # [ ] Consider hashability if quantities need to be dictionary keys or set members
