@@ -6,7 +6,7 @@
 # [x] 200 g + 300 g = 500 g
 # [ ] 200 g + 1 oz, reduced to grams, using a conversion rate
 # [ ] (200 g + 1 oz) × 2
-# [ ] Reducing to the same unit needs no conversion rate
+# [x] Reducing to the same unit needs no conversion rate
 # [ ] 2 oz reduced to grams = 56 g at a rate of 28
 # [ ] Consider hashability if quantities need to be dictionary keys or set members
 
@@ -42,4 +42,4 @@ def test_simple_addition():
 
 def test_reduce_same_unit_needs_no_rate():
     converter = Converter()
-    assert converter.reduce(grams(500), "g") == grams(501)
+    assert converter.reduce(grams(500), "g") == grams(500)
