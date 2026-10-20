@@ -7,7 +7,7 @@
 # [x] 200 g + 1 oz, reduced to grams, using a conversion rate
 # [ ] (200 g + 1 oz) × 2
 # [x] Reducing to the same unit needs no conversion rate
-# [ ] 2 oz reduced to grams = 56 g at a rate of 28
+# [x] 2 oz reduced to grams = 56 g at a rate of 28
 # [ ] Consider hashability if quantities need to be dictionary keys or set members
 
 from kitchen import Converter, grams, ounces
@@ -50,3 +50,9 @@ def test_mixed_addition():
     converter.add_rate("oz", "g", 28)
     total = grams(200).plus(ounces(1))
     assert converter.reduce(total, "g") == grams(228)
+
+
+def test_ounces_to_grams_uses_multiplication():
+    converter = Converter()
+    converter.add_rate("oz", "g", 28)
+    assert converter.reduce(ounces(2), "g") == grams(56)
