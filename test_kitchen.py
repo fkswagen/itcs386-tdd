@@ -9,6 +9,7 @@
 # [x] Reducing to the same unit needs no conversion rate
 # [x] 2 oz reduced to grams = 56 g at a rate of 28
 # [ ] Consider hashability if quantities need to be dictionary keys or set members
+# [ ] Decide how to report a missing conversion rate, then specify it with a test
 
 from kitchen import Converter, grams, ounces
 
