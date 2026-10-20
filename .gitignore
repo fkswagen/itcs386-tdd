@@ -218,3 +218,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local lab handout
+/W9-TDD_Lab_Exercise_v7.pdf

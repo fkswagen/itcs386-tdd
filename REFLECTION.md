@@ -1,27 +1,27 @@
 # Part B: Reflection
 
-บันทึกนี้อ้างอิงโค้ด ผลทดสอบ และ commit history ของการทำ Lab โดยมี AI ช่วยดำเนินการ ผู้เรียนควรทบทวนและปรับคำตอบเรื่องประสบการณ์ส่วนตัวก่อนส่ง โดยเฉพาะข้อ 2 และ 6
+This reflection is based on the code, test results, and commit history of the AI-assisted lab work. Personal observations, especially in questions 2 and 6, should be reviewed by the student before submission.
 
-## 1. จำนวน tests, production code และอัตราส่วน
+## 1. Number of tests, production lines, and their ratio
 
-เมื่อจบ A8 มี tests ใน `test_kitchen.py` 9 ฟังก์ชัน และ production code ใน `kitchen.py` 40 บรรทัดเมื่อนับเฉพาะบรรทัดที่ไม่ว่าง (58 บรรทัดเมื่อรวมบรรทัดว่าง) อัตราส่วนจำนวน tests ต่อบรรทัด production code จึงเป็น 9:40 หรือ 0.225 tests ต่อบรรทัด การนับนี้ใช้ test suite สุดท้าย ไม่รวม test คูณสองแบบเดิมที่ถูกแทนที่ใน A3 หรือ assertions ภายในแต่ละ test
+After A8, the final suite contains 9 test functions in `test_kitchen.py`. The production file, `kitchen.py`, contains 40 nonblank lines, or 58 lines including blank lines. The ratio is therefore 9:40, or 0.225 tests per nonblank production line. This counts the final test functions rather than individual assertions and excludes the earlier multiplication-by-two test that was replaced in A3.
 
-## 2. ช่วงที่ RED นานที่สุดและสาเหตุ
+## 2. The longest red phase and its cause
 
-ไม่ได้จับเวลาของแต่ละ RED จึงระบุไม่ได้แน่นอนว่าช่วงใดนานที่สุดตามเวลาจริง แต่ A7 เป็นช่วงที่มีขั้นกลางระหว่าง RED กับ GREEN มากที่สุดในงานส่วนที่ทำต่อ ผลลัพธ์เริ่มจากไม่มี `add_rate` แล้วกลายเป็น 201 g แทน 228 g เพราะยังบวกตัวเลขโดยไม่แปลงหน่วย ต้องเพิ่มตารางอัตราแปลง ส่ง converter ผ่าน `reduce` และแปลงแต่ละด้านก่อนบวกจึงจะผ่าน
+The duration of each red phase was not measured, so the longest phase in elapsed time cannot be identified reliably. However, A7 required the most intermediate changes between red and green in the work completed here. The mixed-unit test first failed because `add_rate` did not exist, then returned 201 g instead of 228 g because the amounts were added without conversion. Reaching green required storing rates, passing the converter through `reduce`, and converting each operand before adding.
 
-## 3. Fake It, Triangulate และ Obvious Implementation
+## 3. Fake It, Triangulate, and Obvious Implementation
 
-Fake It เกิดใน A1 เมื่อ `times` ตั้งค่าเป็น 600 และใน A6 เมื่อ `plus` คืน `grams(500)` เพื่อให้ test แรกผ่าน จากนั้น A2 ใช้ Triangulate โดยเพิ่มกรณีคูณสองที่ต้องได้ 400 ทำให้ค่าคงที่ใช้ไม่ได้และต้องเปลี่ยนเป็นสูตรคูณ ส่วน A8 ใช้ Obvious Implementation ด้วยการคูณแต่ละด้านของ `Sum` แล้วคืนผลเป็น `Sum` ใหม่ ทั้งสามวิธีเหมาะกับบทบาทของแต่ละขั้น: Fake It ตรวจการเชื่อมต่อของ test, Triangulate ขับให้เกิดสูตรทั่วไป และ Obvious Implementation ใช้เมื่อการเปลี่ยนแปลงสั้นและชัดเจน
+Fake It was used in A1 when `times` set the amount to 600, and again in A6 when `plus` returned `grams(500)`. A2 used Triangulate: adding a multiplication-by-two test expecting 400 forced the constant to be replaced with a general multiplication formula. A8 used Obvious Implementation by multiplying both operands of a `Sum` and returning a new `Sum`. Each choice suited its step: Fake It checked the test-to-code connection, Triangulate drove generalization, and Obvious Implementation kept a short, clear change simple.
 
-## 4. รายการที่ยังเหลือและสิ่งที่จะทำต่อ
+## 4. Remaining test-list items and next steps
 
-พฤติกรรมเดิมทั้งเจ็ดรายการ รวม A8 optional และกรณีที่เพิ่มใน A7 มี tests ผ่านแล้ว รายการที่ยังเปิดอยู่คือการพิจารณา hashability และการกำหนดพฤติกรรมเมื่อไม่มี conversion rate หากพัฒนาต่อจะเริ่มจากกำหนดว่ากรณีไม่มี rate ควรแจ้งข้อผิดพลาดอย่างไร แล้วเขียน test ก่อน ส่วน hashability ยังเป็นการคาดการณ์ เพราะไม่มี requirement ให้ใช้ Quantity เป็น dictionary key หรือ set member จึงควรถอดออกจากงานที่ต้องทำตอนนี้หรือเก็บไว้เป็นแนวคิดในอนาคต ไม่เพิ่ม `__hash__` เพียงเพื่อปิดรายการ
+All seven original behaviors, including optional A8, and the additional A7 cases have passing tests. The remaining items concern hashability and behavior when a conversion rate is missing. The next step would be to decide how a missing rate should be reported and write a test for that behavior first. Hashability is speculative because no current requirement uses quantities as dictionary keys or set members, so it should be removed from the immediate work list or deferred rather than adding `__hash__` merely to close an item.
 
-## 5. หากออกแบบล่วงหน้าจะมี Quantity.reduce หรือไม่
+## 5. Would an up-front design have included Quantity.reduce?
 
-ถ้าออกแบบล่วงหน้า อาจรวมการแปลงทั้งหมดไว้ใน `Converter` และแยกตรวจชนิดของ `Quantity` กับ `Sum` แทน การทำ A6 และ A7 ทำให้เห็นว่าทั้งสองชนิดตอบ `reduce(converter, unit)` ได้เหมือนกัน: Quantity แปลงตัวเอง ส่วน Sum ให้ลูกแต่ละด้านแปลงตัวเองก่อนบวก วิธีนี้ทำให้ Converter เพียงส่งต่องาน และแสดงให้เห็นว่า method นี้เกิดจากความต้องการของ tests ทีละขั้น
+An up-front design might have placed all conversion logic in `Converter`, with separate type checks for `Quantity` and `Sum`. A6 and A7 instead showed that both objects could answer `reduce(converter, unit)`: a quantity converts itself, while a sum reduces its operands before adding them. This lets the converter delegate the work and illustrates how the method emerged from concrete test requirements rather than a complete initial design.
 
-## 6. Test-after ใน Part 0 ต่างจาก Test-first ใน Part A อย่างไร
+## 6. Test-after in Part 0 versus test-first in Part A
 
-ใน Part 0 มีโค้ดให้แล้ว งานจึงเน้นตรวจพฤติกรรมตามกติกาและเรียนรู้เครื่องมือ เช่น parametrize, raises, fixture และ approx ส่วน Part A เริ่มจาก API ที่ test ต้องการใช้ก่อน จึงต้องเลือกการเปลี่ยนแปลงเล็ก ๆ เพื่อให้ผ่านทีละพฤติกรรม Tests ที่เปลี่ยนการออกแบบชัดเจนคือ A3 ซึ่งทำให้ times คืน object ใหม่, A4 ซึ่งนำไปสู่ value equality และ A6–A7 ซึ่งนำไปสู่ Sum กับการส่ง converter เข้า reduce สำหรับความรู้สึกว่ากระบวนการใดง่ายหรือยากกว่า ผู้เรียนควรเติมจากประสบการณ์ที่ตนได้ทำและตรวจสอบจริง
+Part 0 supplied the production code, so the work focused on checking specified behavior and learning tools such as parametrization, exception assertions, fixtures, and approximate comparisons. Part A started with the API needed by each test and required small implementation changes to satisfy one behavior at a time. The A3 test shaped the design by requiring `times` to return a new object, A4 introduced value equality, and A6-A7 led to `Sum` and converter-aware reduction. A personal comparison of how the two approaches felt should be added by the student based on their own experience performing and reviewing the work.
