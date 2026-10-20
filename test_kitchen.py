@@ -4,7 +4,7 @@
 # [x] Two quantities with the same amount and unit are equal
 # [x] 1 oz is not the same as 1 g
 # [x] 200 g + 300 g = 500 g
-# [ ] 200 g + 1 oz, reduced to grams, using a conversion rate
+# [x] 200 g + 1 oz, reduced to grams, using a conversion rate
 # [ ] (200 g + 1 oz) × 2
 # [x] Reducing to the same unit needs no conversion rate
 # [ ] 2 oz reduced to grams = 56 g at a rate of 28
