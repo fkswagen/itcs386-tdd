@@ -3,12 +3,12 @@
 # [x] Multiplying a quantity does not modify the original
 # [x] Two quantities with the same amount and unit are equal
 # [x] 1 oz is not the same as 1 g
-# [ ] 200 g + 300 g = 500 g
+# [x] 200 g + 300 g = 500 g
 # [ ] 200 g + 1 oz, reduced to grams, using a conversion rate
 # [ ] (200 g + 1 oz) × 2
 # [ ] Consider hashability if quantities need to be dictionary keys or set members
 
-from kitchen import grams, ounces
+from kitchen import Converter, grams, ounces
 
 
 def test_multiplication():
